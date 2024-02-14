@@ -1,0 +1,28 @@
+/* Rectangle 173 */
+
+/* Style pour un input */
+
+/* Style de base pour l'input */
+.input-field {
+    -fx-background-color: #FFFFFF; /* Couleur de fond */
+    -fx-border-color: #CCCCCC; /* Couleur de la bordure */
+    -fx-border-radius: 4px; /* Rayon de la bordure */
+    -fx-padding: 8px; /* Espacement intérieur */
+    -fx-font-family: 'Inter'; /* Police de caractère */
+    -fx-font-size: 12px; /* Taille de police */
+}
+
+/* Style lorsque l'input est en focus */
+.input-field:focused {
+    -fx-border-color: #0EA5E9; /* Couleur de la bordure en focus */
+}
+
+/* Style lorsque l'input est désactivé */
+.input-field:disabled {
+    -fx-opacity: 0.5; /* Opacité lorsque désactivé */
+}
+
+/* Style lorsque l'input a une erreur */
+.input-field:error {
+    -fx-border-color: #FF0000; /* Couleur de la bordure en cas d'erreur */
+}

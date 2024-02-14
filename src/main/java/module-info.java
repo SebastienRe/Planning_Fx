@@ -10,7 +10,10 @@ module com.ceri.planningfx {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires org.mnode.ical4j.core;
 
     opens com.ceri.planningfx to javafx.fxml;
     exports com.ceri.planningfx;
+    exports com.ceri.planningfx.controller;
+    opens com.ceri.planningfx.controller to javafx.fxml;
 }
