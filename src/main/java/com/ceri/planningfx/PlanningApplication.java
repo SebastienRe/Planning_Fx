@@ -11,15 +11,14 @@ import java.io.IOException;
 public class PlanningApplication extends Application {
     private static Stage mainStage;
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, InterruptedException {
         mainStage = stage;
         Router.changeScene("connexion.fxml");
         stage.setTitle("CERI-Planning");
         stage.getIcons().add(new Image("file:./resources/images/logo.png"));
         stage.show();
 
-        // ParserIcs.parse("lyesISC.ics");
-        Router.displayPopUpAndWait("che pas gros", Mode.OK);
+        Router.changeScene("main.fxml");
     }
     public static Stage getMainStage() {
         return mainStage;

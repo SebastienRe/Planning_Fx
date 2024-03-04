@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
+
+
+<HBox stylesheets="@stylesheets/styleheader.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceri.planningfx.controller.HeaderController">
+   <children>
+
+             <!-- Hamburger Button -->
+       <Button styleClass="hamburger-button" text="☰" />
+
+             <!-- Menu Buttons -->
+       <MenuButton styleClass="menu-button" text="Formation">
+           <items>
+               <MenuItem text="random" />
+           </items>
+       </MenuButton>
+
+             <MenuButton styleClass="menu-button" text="Salle">
+       <items>
+           <MenuItem text="random" />
+       </items>
+       </MenuButton>
+
+             <MenuButton styleClass="menu-button" text="Utilisateur">
+       <items>
+           <MenuItem text="random" />
+       </items>
+       </MenuButton>
+
+             <!-- Toggle Switch for Theme -->
+       <ToggleButton styleClass="theme-toggle" text="Day/Night" />
+
+             <!-- Logout Button -->
+       <Button styleClass="logout-button" text="Déconnexion" />
+   </children>
+</HBox>
