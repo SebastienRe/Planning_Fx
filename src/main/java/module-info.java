@@ -16,4 +16,6 @@ module com.ceri.planningfx {
     exports com.ceri.planningfx;
     exports com.ceri.planningfx.controller;
     opens com.ceri.planningfx.controller to javafx.fxml;
+    exports com.ceri.planningfx.utilities;
+    opens com.ceri.planningfx.utilities to javafx.fxml;
 }

@@ -1,23 +1,28 @@
 package com.ceri.planningfx;
 
-import com.ceri.planningfx.metier.ParserIcs;
+import com.ceri.planningfx.utilities.Mode;
+import com.ceri.planningfx.utilities.Router;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class PlanningApplication extends Application {
+    private static Stage mainStage;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(PlanningApplication.class
-                .getResource("connexion.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 400);
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
+        mainStage = stage;
+        Router.changeScene("connexion.fxml");
+        stage.setTitle("CERI-Planning");
+        stage.getIcons().add(new Image("file:./resources/images/logo.png"));
         stage.show();
-        ParserIcs.parse("lyesISC.ics");
+
+        // ParserIcs.parse("lyesISC.ics");
+        Router.displayPopUpAndWait("che pas gros", Mode.OK);
+    }
+    public static Stage getMainStage() {
+        return mainStage;
     }
 
     public static void main(String[] args) {
