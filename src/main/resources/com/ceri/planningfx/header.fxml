@@ -1,37 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<HBox stylesheets="@stylesheets/styleheader.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceri.planningfx.controller.HeaderController">
+<HBox maxHeight="86.0" prefHeight="86.0" prefWidth="826.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceri.planningfx.controller.HeaderController">
    <children>
-      <ToggleButton fx:id="HambugerButton" onAction="#toggleMenu" styleClass="hamburger-button" text="☰" />
+      <ToggleButton fx:id="HambugerButton" onAction="#toggleMenu" prefHeight="80.0" prefWidth="96.0" text="☰">
+         <styleClass>
+            <String fx:value="secondary-color" />
+            <String fx:value="heighthead" />
+            <String fx:value="hoverable" />
+         </styleClass>
+         <font>
+            <Font size="25.0" />
+         </font></ToggleButton>
 
-       <MenuButton styleClass="menu-button" text="Formation">
+       <MenuButton styleClass="secondary-color">
            <items>
                <MenuItem text="random" />
            </items>
+         <styleClass>
+            <String fx:value="secondary-color" />
+            <String fx:value="heighthead" />
+            <String fx:value="hoverable" />
+         </styleClass>
+         <font>
+            <Font size="24.0" />
+         </font>
+         <graphic>
+            <Label styleClass="secondary-color" text="Formation">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </graphic>
        </MenuButton>
 
-             <MenuButton styleClass="menu-button" text="Salle">
+             <MenuButton minHeight="43.0" prefHeight="43.0" prefWidth="114.0">
        <items>
            <MenuItem text="random" />
        </items>
+         <styleClass>
+            <String fx:value="secondary-color" />
+            <String fx:value="heighthead" />
+            <String fx:value="hoverable" />
+         </styleClass>
+         <font>
+            <Font size="24.0" />
+         </font>
+         <graphic>
+            <Label styleClass="secondary-color" text="Salle">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </graphic>
        </MenuButton>
 
-             <MenuButton styleClass="menu-button" text="Utilisateur">
+             <MenuButton>
        <items>
            <MenuItem text="random" />
        </items>
+         <styleClass>
+            <String fx:value="secondary-color" />
+            <String fx:value="heighthead" />
+            <String fx:value="hoverable" />
+         </styleClass>
+         <font>
+            <Font size="24.0" />
+         </font>
+         <graphic>
+            <Label styleClass="secondary-color" text="Utilisateur">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </graphic>
        </MenuButton>
-
-             <!-- Toggle Switch for Theme -->
-       <ToggleButton styleClass="theme-toggle" text="Day/Night" />
+      <Button mnemonicParsing="false" onAction="#changeTheme" prefHeight="17.0" prefWidth="58.0">
+         <graphic>
+            <ImageView fx:id="ImageTheme" fitHeight="58.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/mode-nuit.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <styleClass>
+            <String fx:value="secondary-color" />
+            <String fx:value="heighthead" />
+            <String fx:value="hoverable" />
+         </styleClass>
+      </Button>
 
              <!-- Logout Button -->
-       <Button styleClass="logout-button" text="Déconnexion" />
+       <Button prefHeight="60.0" prefWidth="86.0">
+         <styleClass>
+            <String fx:value="secondary-color" />
+            <String fx:value="heighthead" />
+            <String fx:value="hoverable" />
+         </styleClass>
+         <graphic>
+            <ImageView fx:id="ImageButton" fitHeight="55.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/se-deconnecter-light.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
    </children>
+   <stylesheets>
+      <URL value="@stylesheets/themeLight.css" />
+      <URL value="@stylesheets/header.css" />
+   </stylesheets>
+   <styleClass>
+      <String fx:value="heighthead" />
+      <String fx:value="hbox" />
+      <String fx:value="secondary-color" />
+   </styleClass>
 </HBox>

@@ -1,0 +1,9 @@
+/*hauteur de l'élement*/
+.heighthead {
+    -fx-min-height: 75px;
+    -fx-max-height: 75px;
+}
+
+/*hbox pour l'espacement*/
+.hbox {
+}

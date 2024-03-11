@@ -10,10 +10,6 @@ public class MainController {
     private BorderPane mainBorderPane;
 
     public void initialize() {
-        System.out.println("MainController initialize");
         HeaderManager.setMainBorderPane(mainBorderPane);
-        if (HeaderManager.getMainBorderPane() == null) {
-            System.out.println("MainController initialize: mainBorderPane is null");
-        }
     }
 }

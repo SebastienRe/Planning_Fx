@@ -1,0 +1,20 @@
+.primary-color {
+    -fx-background-color: #4f4f4f; /* Couleur de fond sombre */
+    -fx-text-fill: #ffffff !important; /* Couleur du texte en mode sombre */
+}
+
+
+.secondary-color {
+    -fx-background-color: #212121; /* Couleur de fond claire */
+    -fx-text-fill: #ffffff !important; /* Couleur du texte en mode clair */
+}
+
+.third-color {
+    -fx-background-color: #2b2b2b; /* Couleur de fond claire */
+    -fx-text-fill: #ffffff !important; /* Couleur du texte en mode clair */
+}
+
+.hoverable:hover {
+    -fx-border-color: #969696;
+    -fx-border-radius: 4px;
+}
