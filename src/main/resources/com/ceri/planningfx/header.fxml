@@ -21,7 +21,7 @@
             <String fx:value="hoverable" />
          </styleClass>
          <font>
-            <Font size="25.0" />
+            <Font size="21.0" />
          </font></ToggleButton>
 
        <MenuButton styleClass="secondary-color">
@@ -34,12 +34,12 @@
             <String fx:value="hoverable" />
          </styleClass>
          <font>
-            <Font size="24.0" />
+            <Font size="21.0" />
          </font>
          <graphic>
             <Label styleClass="secondary-color" text="Formation">
                <font>
-                  <Font size="24.0" />
+                  <Font size="20.0" />
                </font>
             </Label>
          </graphic>
@@ -55,12 +55,12 @@
             <String fx:value="hoverable" />
          </styleClass>
          <font>
-            <Font size="24.0" />
+            <Font size="21.0" />
          </font>
          <graphic>
             <Label styleClass="secondary-color" text="Salle">
                <font>
-                  <Font size="24.0" />
+                  <Font size="21.0" />
                </font>
             </Label>
          </graphic>
@@ -76,19 +76,19 @@
             <String fx:value="hoverable" />
          </styleClass>
          <font>
-            <Font size="24.0" />
+            <Font size="21.0" />
          </font>
          <graphic>
             <Label styleClass="secondary-color" text="Utilisateur">
                <font>
-                  <Font size="24.0" />
+                  <Font size="21.0" />
                </font>
             </Label>
          </graphic>
        </MenuButton>
       <Button mnemonicParsing="false" onAction="#changeTheme" prefHeight="17.0" prefWidth="58.0">
          <graphic>
-            <ImageView fx:id="ImageTheme" fitHeight="58.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ImageTheme" fitHeight="44.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/mode-nuit.png" />
                </image>
@@ -109,7 +109,7 @@
             <String fx:value="hoverable" />
          </styleClass>
          <graphic>
-            <ImageView fx:id="ImageButton" fitHeight="55.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="ImageButton" fitHeight="38.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/se-deconnecter-light.png" />
                </image>
