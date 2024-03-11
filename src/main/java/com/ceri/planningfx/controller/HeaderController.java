@@ -19,10 +19,10 @@ public class HeaderController {
 
     @FXML
     public void toggleMenu() throws IOException {
-        toggleFilters(HambugerButton.isSelected());
+        this.toggleFilters(HambugerButton.isSelected());
     }
 
-    public static void toggleFilters(boolean selected) throws IOException {
+    public void toggleFilters(boolean selected) throws IOException {
         if (selected) {
             System.out.println("HambugerButton.isSelected()");
             // Charge le fichier FXML

@@ -6,7 +6,4 @@
     <top>
         <fx:include source="header.fxml" />
     </top>
-    <left>
-        <fx:include source="filtres.fxml" />
-    </left>
 </BorderPane>
