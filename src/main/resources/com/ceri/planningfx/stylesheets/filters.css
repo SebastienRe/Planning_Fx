@@ -1,0 +1,5 @@
+.root {
+    -fx-border-style: solid;
+    -fx-border-width: 0 3 0 0;
+    -fx-border-color: #d9d9d9;
+}

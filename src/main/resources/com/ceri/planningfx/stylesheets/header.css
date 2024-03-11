@@ -5,5 +5,8 @@
 }
 
 /*hbox pour l'espacement*/
-.hbox {
+.root {
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #a9a9a9;
 }

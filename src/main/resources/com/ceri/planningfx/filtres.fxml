@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="315.0" prefWidth="236.0" styleClass="third-color" stylesheets="@stylesheets/themeLight.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceri.planningfx.controller.FiltresController">
+<VBox alignment="CENTER" prefHeight="315.0" prefWidth="236.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceri.planningfx.controller.FiltresController">
    <children>
       <HBox alignment="CENTER" prefHeight="51.0" prefWidth="236.0" styleClass="primary-color">
          <children>
@@ -111,5 +112,13 @@
             <String fx:value="hoverable" />
          </styleClass></Button>
    </children>
+   <stylesheets>
+      <URL value="@stylesheets/themeLight.css" />
+      <URL value="@stylesheets/filters.css" />
+   </stylesheets>
+   <styleClass>
+      <String fx:value="third-color" />
+      <String fx:value="root" />
+   </styleClass>
 
 </VBox>
