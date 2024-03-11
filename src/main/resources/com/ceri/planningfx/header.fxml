@@ -6,14 +6,10 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.HBox?>
 
-
 <HBox stylesheets="@stylesheets/styleheader.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceri.planningfx.controller.HeaderController">
    <children>
+      <ToggleButton fx:id="HambugerButton" onAction="#toggleMenu" styleClass="hamburger-button" text="☰" />
 
-             <!-- Hamburger Button -->
-       <Button styleClass="hamburger-button" text="☰" />
-
-             <!-- Menu Buttons -->
        <MenuButton styleClass="menu-button" text="Formation">
            <items>
                <MenuItem text="random" />
