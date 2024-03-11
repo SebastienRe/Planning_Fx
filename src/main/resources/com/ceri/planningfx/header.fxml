@@ -102,7 +102,7 @@
       </Button>
 
              <!-- Logout Button -->
-       <Button prefHeight="60.0" prefWidth="86.0">
+       <Button onAction="#deconnexionButtonPressed" prefHeight="60.0" prefWidth="86.0">
          <styleClass>
             <String fx:value="secondary-color" />
             <String fx:value="heighthead" />

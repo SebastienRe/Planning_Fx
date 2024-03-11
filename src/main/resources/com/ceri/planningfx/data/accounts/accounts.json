@@ -1,0 +1,26 @@
+{
+  "accounts": [
+    {
+      "nom": "Ré",
+      "prenom": "Sébastien",
+      "role": "eleve",
+      "username" : "uapv2201797",
+      "mdp" : "chips"
+    },
+    {
+      "nom": "Douki",
+      "prenom": "Lyes",
+      "role": "eleve",
+      "username" : "uapv2200555",
+      "mdp" : "jedetestejavafx"
+    },
+    {
+      "nom" : "Cecillon",
+      "prenom" : "Noé",
+      "role" : "professeur",
+      "username" : "cecillon",
+      "mdp" : "oui"
+    }
+  ]
+}
+

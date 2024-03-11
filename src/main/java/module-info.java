@@ -11,6 +11,7 @@ module com.ceri.planningfx {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires org.mnode.ical4j.core;
+    requires json.simple;
 
     opens com.ceri.planningfx to javafx.fxml;
     exports com.ceri.planningfx;

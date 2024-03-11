@@ -1,6 +1,7 @@
 package com.ceri.planningfx.controller;
 
 import com.ceri.planningfx.PlanningApplication;
+import com.ceri.planningfx.utilities.AccountService;
 import com.ceri.planningfx.utilities.HeaderManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +29,11 @@ public class HeaderController {
         HambugerButton.setSelected(false);
         //creer un thread
         new Thread(this::waitMainBorderPane).start();
+    }
+
+    @FXML
+    public void deconnexionButtonPressed() {
+        AccountService.deconnexion();
     }
 
     private void waitMainBorderPane() {
