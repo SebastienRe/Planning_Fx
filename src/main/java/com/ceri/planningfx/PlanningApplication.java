@@ -18,7 +18,7 @@ public class PlanningApplication extends Application {
         stage.getIcons().add(new Image("file:./resources/images/logo.png"));
         stage.show();
 
-        Router.changeScene("connexion.fxml");
+        Router.changeScene("main.fxml");
     }
     public static Stage getMainStage() {
         return mainStage;

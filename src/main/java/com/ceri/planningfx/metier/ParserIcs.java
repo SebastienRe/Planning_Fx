@@ -3,6 +3,7 @@ package com.ceri.planningfx.metier;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class ParserIcs implements Serializable {
             calendar = builder.build(fin);
             events = calendar.getComponents("VEVENT");
             for (VEvent event : events) {
-                System.out.println("summary " + event.getSummary().get().getValue());
+                System.out.println(event.getDateTimeStart().get().getValue());
             }
         } catch (Exception e) {
             e.printStackTrace();

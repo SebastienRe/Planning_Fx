@@ -6,4 +6,7 @@
     <top>
         <fx:include source="header.fxml" />
     </top>
+    <center>
+        <fx:include source="edt.fxml" />
+    </center>
 </BorderPane>
