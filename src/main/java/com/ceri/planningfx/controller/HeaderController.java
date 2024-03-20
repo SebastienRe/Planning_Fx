@@ -1,12 +1,13 @@
 package com.ceri.planningfx.controller;
 
 import com.ceri.planningfx.PlanningApplication;
+import com.ceri.planningfx.utilities.PlanningService;
 import com.ceri.planningfx.utilities.AccountService;
 import com.ceri.planningfx.utilities.HeaderManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,10 +26,32 @@ public class HeaderController {
     @FXML
     ImageView ImageButton;
 
+    @FXML
+    MenuButton formationMenu;
+    @FXML
+    MenuButton salleMenu;
+    @FXML
+    MenuButton userMenu;
+
     public void initialize() {
         HambugerButton.setSelected(false);
         //creer un thread
         new Thread(this::waitMainBorderPane).start();
+
+        System.out.println(PlanningService.getListPlanning("formation"));
+        /*
+        PlanningManager.getListPlanning("formation").forEach(planning -> {
+            MenuItem item = new MenuItem(planning);
+            formationMenu.getItems().add(item);
+        });
+        PlanningManager.getListPlanning("salle").forEach(planning -> {
+            MenuItem item = new MenuItem(planning);
+            salleMenu.getItems().add(item);
+        });
+        PlanningManager.getListPlanning("user").forEach(planning -> {
+            MenuItem item = new MenuItem(planning);
+            userMenu.getItems().add(item);
+        });*/
     }
 
     @FXML
