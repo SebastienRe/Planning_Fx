@@ -13,6 +13,11 @@ public class EvenementEntity{
     private String dateEndString;
     private Date dateStart;
     private Date dateEnd;
+
+    private String Matiere;
+    private String Salle;
+    private String Professeur;
+    private String Type;
     public EvenementEntity() {
     }
 
@@ -85,5 +90,37 @@ public class EvenementEntity{
 
     public void setDateEnd(Date dateEnd) {
         this.dateEnd = dateEnd;
+    }
+
+    public String getMatiere() {
+        return Matiere;
+    }
+
+    public void setMatiere(String matiere) {
+        Matiere = matiere;
+    }
+
+    public String getSalle() {
+        return Salle;
+    }
+
+    public void setSalle(String salle) {
+        Salle = salle;
+    }
+
+    public String getProfesseur() {
+        return Professeur;
+    }
+
+    public void setProfesseur(String professeur) {
+        Professeur = professeur;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public void setType(String type) {
+        Type = type;
     }
 }

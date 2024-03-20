@@ -24,10 +24,7 @@
             <Font size="21.0" />
          </font></ToggleButton>
 
-       <MenuButton styleClass="secondary-color">
-           <items>
-               <MenuItem text="random" />
-           </items>
+       <MenuButton styleClass="secondary-color" fx:id="menuButtonFormation">
          <styleClass>
             <String fx:value="secondary-color" />
             <String fx:value="heighthead" />
@@ -45,10 +42,7 @@
          </graphic>
        </MenuButton>
 
-             <MenuButton minHeight="43.0" prefHeight="43.0" prefWidth="114.0">
-       <items>
-           <MenuItem text="random" />
-       </items>
+       <MenuButton minHeight="43.0" prefHeight="43.0" prefWidth="114.0" fx:id="menuButtonSalle">
          <styleClass>
             <String fx:value="secondary-color" />
             <String fx:value="heighthead" />
@@ -66,9 +60,8 @@
          </graphic>
        </MenuButton>
 
-             <MenuButton>
+             <MenuButton fx:id="menuButtonUtilisateur" >
        <items>
-           <MenuItem text="random" />
        </items>
          <styleClass>
             <String fx:value="secondary-color" />

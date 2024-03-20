@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import com.ceri.planningfx.PlanningApplication;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
@@ -14,7 +15,7 @@ import java.io.IOException;
 
 public class Router {
 
-    private static int width = 800;
+    private static int width = 950;
     private static int height = 400;
     public static void changeScene(String sceneName) {
 
@@ -22,7 +23,7 @@ public class Router {
         try {
             PlanningApplication.getMainStage();
             FXMLLoader fxmlLoader = new FXMLLoader(PlanningApplication.class.getResource(sceneName));
-            Scene scene = new Scene(fxmlLoader.load(), width, height);
+            Scene scene = new Scene(fxmlLoader.load(), width, Screen.getPrimary().getVisualBounds().getHeight());
             PlanningApplication.getMainStage().setScene(scene);
         }
         catch (IOException e) {

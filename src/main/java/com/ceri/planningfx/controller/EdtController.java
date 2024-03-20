@@ -1,34 +1,34 @@
 package com.ceri.planningfx.controller;
 
+import com.ceri.planningfx.metier.ParserIcs;
 import com.ceri.planningfx.models.EvenementEntity;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
+
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import net.fortuna.ical4j.data.ParserException;
-import net.fortuna.ical4j.model.Calendar;
-import net.fortuna.ical4j.model.component.VEvent;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.text.ParseException;
+import java.text.DateFormatSymbols;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.Duration;
+
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import net.fortuna.ical4j.data.CalendarBuilder;
 
 public class EdtController {
+
+    int min = 24;
     ZonedDateTime dateFocus;
     ZonedDateTime today;
 
@@ -46,11 +46,18 @@ public class EdtController {
     @FXML
     private Button previousWeekButton;
 
-    // Define grid pane for displaying events
-    @FXML
-    private GridPane eventGridPane;
+
+    private String[] monthNames;
+
+    Map<LocalDate, List<EvenementEntity>> calendarEventMap;
 
     public void initialize() {
+
+        ParserIcs parserIcs = new ParserIcs();
+        calendarEventMap = parserIcs.parse();
+        this.min = parserIcs.getMin();
+        DateFormatSymbols dfs = new DateFormatSymbols(Locale.FRENCH);
+        monthNames = dfs.getMonths();
 
         dateFocus = ZonedDateTime.now();
         today = ZonedDateTime.now();
@@ -71,7 +78,7 @@ public class EdtController {
 
     private void drawCalendar(FlowPane calendar) {
         year.setText(String.valueOf(dateFocus.getYear()));
-        month.setText(String.valueOf(dateFocus.getMonth()));
+        month.setText(monthNames[dateFocus.getMonthValue() - 1]);
 
         // Calcul des dates des cinq jours de travail de la semaine
         LocalDate mondayOfWeek = dateFocus.with(DayOfWeek.MONDAY).toLocalDate();
@@ -87,8 +94,7 @@ public class EdtController {
         double spacingH = 10;
         double spacingV = 10;
 
-        Map<LocalDate, List<EvenementEntity>> calendarEventMap = getCalendarEventsWeek(dateFocus);
-
+        //Map<LocalDate, List<EvenementEntity>> calendarEventMap = getCalendarEventsWeek(dateFocus);
         for (LocalDate currentDay : weekDays) {
             StackPane stackPane = new StackPane();
 
@@ -102,6 +108,11 @@ public class EdtController {
             rectangle.setHeight(rectangleHeight);
             stackPane.getChildren().add(rectangle);
 
+            // Ajout d'un Text pour afficher la date complète au-dessus de chaque jour
+            Text dateText = new Text(currentDay.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
+            StackPane.setAlignment(dateText, Pos.TOP_CENTER); // Alignement au centre en haut
+            stackPane.getChildren().add(dateText);
+
             // Ajout des événements au bon jour de la semaine
             List<EvenementEntity> calendarEvents = calendarEventMap.getOrDefault(currentDay, new ArrayList<>());
             createCalendarEvents(calendarEvents, rectangleHeight, rectangleWidth, stackPane);
@@ -112,37 +123,6 @@ public class EdtController {
         }
     }
 
-    private Map<LocalDate, List<EvenementEntity>> getCalendarEventsWeek(ZonedDateTime date) {
-        Map<LocalDate, List<EvenementEntity>> eventsMap = new HashMap<>();
-        try {
-            FileInputStream fin = new FileInputStream("C:\\projets\\S2\\javafx\\Planning_fx\\" +
-                    "src\\main\\resources\\com\\ceri\\planningfx\\data\\planning\\uapv2200555.ics");
-            CalendarBuilder builder = new CalendarBuilder();
-            Calendar calendar = builder.build(fin);
-            List<VEvent> events = calendar.getComponents("VEVENT");
-
-            for (VEvent event : events) {
-                EvenementEntity evenementEntity = new EvenementEntity();
-                if(event.getDescription().isPresent()) {
-                    evenementEntity.setSummary(event.getDescription().get().getValue());
-                } else {
-                    evenementEntity.setSummary("pas de description");
-                }
-                evenementEntity.setDateStartString(event.getDateTimeStart().get().getValue());
-                evenementEntity.setDateEndString(event.getDateTimeEnd().get().getValue());
-                evenementEntity.mapDate();
-
-                LocalDate eventDate = evenementEntity.getDateStart().toInstant().
-                        atZone(ZoneId.systemDefault()).toLocalDate();
-                eventsMap.computeIfAbsent(eventDate, k -> new ArrayList<>()).add(evenementEntity);
-            }
-        } catch (IOException | ParserException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        return eventsMap;
-    }
 
     private void createCalendarEvents(List<EvenementEntity> calendarEvents,
                                       double rectangleHeight, double rectangleWidth, StackPane stackPane) {
@@ -151,8 +131,10 @@ public class EdtController {
 
         // Tri des événements par heure de début
         calendarEvents.sort(Comparator.comparing(e -> e.getDateStart()));
-
         for (EvenementEntity event : calendarEvents) {
+            if (event.getDateStart().getHours() < 6) {
+                continue;
+            }
             String summary = event.getSummary();
             Text eventText = new Text(summary);
 
@@ -173,13 +155,25 @@ public class EdtController {
             // Créer un bloc pour contenir le texte de l'événement
             StackPane eventBlock = new StackPane();
             eventBlock.getChildren().add(eventText);
-            eventBlock.setStyle("-fx-background-color: GRAY; -fx-padding: 2px;"); // Ajustez la taille des marges
+            LocalTime eventStartTime = LocalTime.of(startHour, startMinute);
+            LocalTime eventEndTime = LocalTime.of(endHour, endMinute);
+            LocalTime currentTime = LocalTime.now();
+            if (currentTime.isAfter(eventStartTime) && currentTime.isBefore(eventEndTime)
+            && event.getDateStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isEqual(today.toLocalDate())
+            ) {
+                eventBlock.setStyle("-fx-background-color: GREEN; -fx-padding: 2px;");
+            } else {
+                eventBlock.setStyle("-fx-background-color: GRAY; -fx-padding: 2px;");
+            }
+            if (event.getType() != null && event.getType().contains("Evaluation"))
+            {
+                eventBlock.setStyle("-fx-background-color: RED; -fx-padding: 2px;");
+            }
+
+            //eventBlock.setStyle("-fx-background-color: GRAY; -fx-padding: 2px;"); // Ajustez la taille des marges
             // Ajuster la taille du bloc en fonction de la taille du texte
             eventText.wrappingWidthProperty().bind(calendarEventsBox.widthProperty().subtract(10)); // Réduire la largeur de 10 pour la marge
             eventText.setStyle("-fx-font-size: 10px;"); // Taille de police ajustable
-
-            // Ajouter l'événement à la grille
-            placeEventInGrid(eventBlock, startHour, startMinute, endHour, endMinute, rectangleHeight);
 
             // Ajouter le bloc à la boîte des événements du calendrier
             calendarEventsBox.getChildren().add(eventBlock);
@@ -187,26 +181,9 @@ public class EdtController {
 
         // Espacement entre les blocs
         calendarEventsBox.setSpacing(spacing);
-
-        // Ajouter la boîte des événements directement au haut de la stackPane
-        stackPane.getChildren().add(0, calendarEventsBox);
-    }
-
-    // Fonction pour placer un événement dans la grille
-    private void placeEventInGrid(StackPane eventBlock, int startHour, int startMinute, int endHour, int endMinute, double rectangleHeight) {
-        // Calculate position and size in grid pane
-        double totalMinutes = Duration.between(LocalTime.of(8, 0), LocalTime.of(startHour, startMinute)).toMinutes();
-        double eventStartY = (totalMinutes / 660) * rectangleHeight;
-
-        double eventDuration = Duration.between(LocalTime.of(startHour, startMinute), LocalTime.of(endHour, endMinute)).toMinutes();
-        double eventHeight = (eventDuration / 660) * rectangleHeight;
-
-        // Set position and size of event in grid pane
-        eventBlock.setLayoutY(eventStartY);
-        eventBlock.setPrefHeight(eventHeight);
-
-        // Add event to grid pane
-        eventGridPane.getChildren().add(eventBlock);
+        if (calendarEvents.size() > 0)
+            calendarEventsBox.setTranslateY((calendarEvents.get(0).getDateStart().getHours() - min - 7.2) * 25);
+        stackPane.getChildren().add(calendarEventsBox);
     }
 
 }
