@@ -2,6 +2,7 @@ package com.ceri.planningfx.controller;
 
 import com.ceri.planningfx.metier.ParserIcs;
 import com.ceri.planningfx.models.EvenementEntity;
+import com.ceri.planningfx.models.FiltresCollections;
 import com.ceri.planningfx.utilities.HeaderManager;
 import com.ceri.planningfx.utilities.MailService;
 import javafx.event.ActionEvent;
@@ -51,6 +52,8 @@ public class EdtController {
     private MailService mailService;
     private String[] monthNames;
 
+    public FiltresCollections filtresCollections;
+
     Map<LocalDate, List<EvenementEntity>> calendarEventMap;
 
     public void initialize() {
@@ -67,6 +70,7 @@ public class EdtController {
         nextWeekButton.setOnAction(this::moveToNextWeek);
         previousWeekButton.setOnAction(this::moveToPreviousWeek);
         drawCalendar(calendar);
+        this.filtresCollections = parserIcs.filtresCollections;
     }
 
     private void moveToNextWeek(ActionEvent event) {
@@ -225,6 +229,14 @@ public class EdtController {
     public void refresh() {
         ParserIcs parserIcs = new ParserIcs();
         calendarEventMap = parserIcs.parse();
+        this.min = parserIcs.getMin();
+        drawCalendar(calendar);
+        this.filtresCollections = parserIcs.filtresCollections;
+        HeaderManager.getFiltresController().refresh();
+    }
+    public void refreshWithFiltre(String filtre) {
+        ParserIcs parserIcs = new ParserIcs();
+        calendarEventMap = parserIcs.parseWithFiltre(filtre);
         this.min = parserIcs.getMin();
         drawCalendar(calendar);
     }

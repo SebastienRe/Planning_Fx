@@ -1,6 +1,7 @@
 package com.ceri.planningfx.utilities;
 
 import com.ceri.planningfx.controller.EdtController;
+import com.ceri.planningfx.controller.FiltresController;
 import javafx.scene.layout.BorderPane;
 
 public class HeaderManager {
@@ -13,6 +14,16 @@ public class HeaderManager {
 
     public static void setEdtController(EdtController controller) {
         edtController = controller;
+    }
+
+    private static FiltresController filtresController;
+
+    public static FiltresController getFiltresController() {
+        return filtresController;
+    }
+
+    public static void setFiltresController(FiltresController controller) {
+        filtresController = controller;
     }
     public static BorderPane getMainBorderPane() {
         return mainBorderPane;

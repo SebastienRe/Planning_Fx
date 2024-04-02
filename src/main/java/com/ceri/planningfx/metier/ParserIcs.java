@@ -9,12 +9,10 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.ceri.planningfx.models.EvenementEntity;
+import com.ceri.planningfx.models.FiltresCollections;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
@@ -30,10 +28,11 @@ public class ParserIcs implements Serializable {
     public static String foleder = "";
     public static String file = "";
     private int min = 24;
+    public FiltresCollections filtresCollections;
     public ParserIcs() {
-        System.out.println("dir : " + System.getProperty("user.dir"));
         calendar = new Calendar();
         events = new ArrayList<>();
+        filtresCollections = new FiltresCollections();
     }
 
     public  Map<LocalDate, List<EvenementEntity>> parse() {
@@ -56,16 +55,24 @@ public class ParserIcs implements Serializable {
                     for (String s : descriptionList) {
                         if (s.contains("Matière")) {
                             evenementEntity.setMatiere(s);
+                            filtresCollections.listDesMatieres.add(s);
                             summary = summary + s + "\n";
                         } else if (s.contains("Salle")) {
                             evenementEntity.setSalle(s);
+                            filtresCollections.listDesSalles.add(s);
                             summary = summary + s + "\n";
                         } else if (s.contains("Professeur")) {
                             evenementEntity.setProfesseur(s);
                             summary = summary + s + "\n";
                         } else if (s.contains("Type")) {
+                            filtresCollections.typesDeCours.add(s);
                             evenementEntity.setType(s);
                             summary = summary + s + "\n";
+                        }else if (s.contains("TD"))
+                        {
+                            String [] td = s.split("\\,");
+                            filtresCollections.listDesGroupes.addAll(Arrays.asList(td));
+
                         }
                     }
                     evenementEntity.setSummary(summary);
@@ -101,4 +108,73 @@ public class ParserIcs implements Serializable {
     public int getMin() {
         return min;
     }
+
+    public Map<LocalDate, List<EvenementEntity>> parseWithFiltre(String filtre) {
+        Map<LocalDate, List<EvenementEntity>> eventsMap = new HashMap<>();
+        try {
+            FileInputStream fin = this.getIcsFile(foleder + "\\" + file);
+            CalendarBuilder builder = new CalendarBuilder();
+            Calendar calendar = builder.build(fin);
+            List<VEvent> events = calendar.getComponents("VEVENT");
+
+            for (VEvent event : events) {
+                EvenementEntity evenementEntity = new EvenementEntity();
+                if (event.getDescription().isPresent()) {
+                    String description = event.getDescription().get().getValue();
+                    String[] descriptionList = description.split("\n");
+                    String summary = "";
+
+                    // Vérifier si la description contient le filtre
+                    boolean containsFilter = false;
+                    for (String s : descriptionList) {
+                        if (s.contains(filtre)) {
+                            containsFilter = true;
+                            break;
+                        }
+                    }
+
+                    // Si la description contient le filtre, ajouter l'événement
+                    if (containsFilter) {
+                        for (String s : descriptionList) {
+                            if (s.contains("Matière")) {
+                                evenementEntity.setMatiere(s);
+                                filtresCollections.listDesMatieres.add(s);
+                                summary = summary + s + "\n";
+                            } else if (s.contains("Salle")) {
+                                evenementEntity.setSalle(s);
+                                filtresCollections.listDesSalles.add(s);
+                                summary = summary + s + "\n";
+                            } else if (s.contains("Professeur")) {
+                                evenementEntity.setProfesseur(s);
+                                summary = summary + s + "\n";
+                            } else if (s.contains("Type")) {
+                                filtresCollections.typesDeCours.add(s);
+                                evenementEntity.setType(s);
+                                summary = summary + s + "\n";
+                            } else if (s.contains("TD")) {
+                                String[] td = s.split("\\,");
+                                filtresCollections.listDesGroupes.addAll(Arrays.asList(td));
+                            }
+                        }
+                        evenementEntity.setSummary(summary);
+                        evenementEntity.setDateStartString(event.getDateTimeStart().get().getValue());
+                        evenementEntity.setDateEndString(event.getDateTimeEnd().get().getValue());
+                        evenementEntity.mapDate();
+                        if (evenementEntity.getDateStart().getHours() < this.min) {
+                            this.min = evenementEntity.getDateStart().getHours();
+                        }
+                        LocalDate eventDate = evenementEntity.getDateStart().toInstant().
+                                atZone(ZoneId.systemDefault()).toLocalDate();
+                        eventsMap.computeIfAbsent(eventDate, k -> new ArrayList<>()).add(evenementEntity);
+                    }
+                }
+            }
+        } catch (IOException | ParserException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return eventsMap;
+    }
+
 }
