@@ -182,7 +182,8 @@ public class EdtController {
         // Espacement entre les blocs
         calendarEventsBox.setSpacing(spacing);
         if (calendarEvents.size() > 0)
-            calendarEventsBox.setTranslateY((calendarEvents.get(0).getDateStart().getHours() - min - 7.2) * 25);
+            calendarEventsBox.setTranslateY((calendarEvents.get(0).getDateStart().
+                    getHours() - min - 5) * 15);
         stackPane.getChildren().add(calendarEventsBox);
     }
 

@@ -33,7 +33,7 @@ public class AccountService {
         for (Object account : getAccounts()) {
             JSONObject acc = (JSONObject) account;
             if (acc.get("username").equals(username) && acc.get("mdp").equals(password)) {
-                Router.changeScene("main.fxml");
+                //Router.changeScene("main.fxml");
                 connectedAccount = acc;
                 return true;
             }
