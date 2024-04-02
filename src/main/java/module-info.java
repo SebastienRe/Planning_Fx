@@ -12,6 +12,7 @@ module com.ceri.planningfx {
     requires com.almasb.fxgl.all;
     requires org.mnode.ical4j.core;
     requires json.simple;
+    requires java.mail;
 
     opens com.ceri.planningfx to javafx.fxml;
     exports com.ceri.planningfx;

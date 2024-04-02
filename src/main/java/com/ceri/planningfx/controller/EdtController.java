@@ -2,29 +2,30 @@ package com.ceri.planningfx.controller;
 
 import com.ceri.planningfx.metier.ParserIcs;
 import com.ceri.planningfx.models.EvenementEntity;
+import com.ceri.planningfx.utilities.MailService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
-
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import javax.mail.MessagingException;
 import java.text.DateFormatSymbols;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
 
 public class EdtController {
 
@@ -46,13 +47,13 @@ public class EdtController {
     @FXML
     private Button previousWeekButton;
 
-
+    private MailService mailService;
     private String[] monthNames;
 
     Map<LocalDate, List<EvenementEntity>> calendarEventMap;
 
     public void initialize() {
-
+        mailService = new MailService();
         ParserIcs parserIcs = new ParserIcs();
         calendarEventMap = parserIcs.parse();
         this.min = parserIcs.getMin();
@@ -94,7 +95,6 @@ public class EdtController {
         double spacingH = 10;
         double spacingV = 10;
 
-        //Map<LocalDate, List<EvenementEntity>> calendarEventMap = getCalendarEventsWeek(dateFocus);
         for (LocalDate currentDay : weekDays) {
             StackPane stackPane = new StackPane();
 
@@ -108,28 +108,23 @@ public class EdtController {
             rectangle.setHeight(rectangleHeight);
             stackPane.getChildren().add(rectangle);
 
-            // Ajout d'un Text pour afficher la date complète au-dessus de chaque jour
             Text dateText = new Text(currentDay.format(DateTimeFormatter.ofPattern("dd MMMM yyyy")));
             StackPane.setAlignment(dateText, Pos.TOP_CENTER); // Alignement au centre en haut
             stackPane.getChildren().add(dateText);
 
-            // Ajout des événements au bon jour de la semaine
             List<EvenementEntity> calendarEvents = calendarEventMap.getOrDefault(currentDay, new ArrayList<>());
             createCalendarEvents(calendarEvents, rectangleHeight, rectangleWidth, stackPane);
 
-            // Ajout du stackPane au bon emplacement dans le FlowPane
             int dayOfWeek = currentDay.getDayOfWeek().getValue(); // 1: Monday, 2: Tuesday, ..., 7: Sunday
             calendar.getChildren().add(dayOfWeek - 1, stackPane); // -1 to adjust index for Monday being the first day
         }
     }
-
 
     private void createCalendarEvents(List<EvenementEntity> calendarEvents,
                                       double rectangleHeight, double rectangleWidth, StackPane stackPane) {
         VBox calendarEventsBox = new VBox();
         double spacing = 5; // Espacement entre les blocs
 
-        // Tri des événements par heure de début
         calendarEvents.sort(Comparator.comparing(e -> e.getDateStart()));
         for (EvenementEntity event : calendarEvents) {
             if (event.getDateStart().getHours() < 6) {
@@ -138,48 +133,46 @@ public class EdtController {
             String summary = event.getSummary();
             Text eventText = new Text(summary);
 
-            // Récupérer les heures de début et de fin de l'événement
             int startHour = event.getDateStart().getHours();
             int startMinute = event.getDateStart().getMinutes();
             int endHour = event.getDateEnd().getHours();
             int endMinute = event.getDateEnd().getMinutes();
 
-            // Formater les heures de début et de fin
             String startTime = String.format("%02d:%02d", startHour, startMinute);
             String endTime = String.format("%02d:%02d", endHour, endMinute);
 
-            // Ajouter les heures de début et de fin à côté du résumé de l'événement
             String eventDescription = startTime + " - " + endTime + "\n" + summary;
             eventText.setText(eventDescription);
 
-            // Créer un bloc pour contenir le texte de l'événement
             StackPane eventBlock = new StackPane();
             eventBlock.getChildren().add(eventText);
             LocalTime eventStartTime = LocalTime.of(startHour, startMinute);
             LocalTime eventEndTime = LocalTime.of(endHour, endMinute);
             LocalTime currentTime = LocalTime.now();
             if (currentTime.isAfter(eventStartTime) && currentTime.isBefore(eventEndTime)
-            && event.getDateStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isEqual(today.toLocalDate())
-            ) {
+                    && event.getDateStart().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isEqual(today.toLocalDate())) {
                 eventBlock.setStyle("-fx-background-color: GREEN; -fx-padding: 2px;");
             } else {
                 eventBlock.setStyle("-fx-background-color: GRAY; -fx-padding: 2px;");
             }
-            if (event.getType() != null && event.getType().contains("Evaluation"))
-            {
+            if (event.getType() != null && event.getType().contains("Evaluation")) {
                 eventBlock.setStyle("-fx-background-color: RED; -fx-padding: 2px;");
             }
 
-            //eventBlock.setStyle("-fx-background-color: GRAY; -fx-padding: 2px;"); // Ajustez la taille des marges
-            // Ajuster la taille du bloc en fonction de la taille du texte
             eventText.wrappingWidthProperty().bind(calendarEventsBox.widthProperty().subtract(10)); // Réduire la largeur de 10 pour la marge
             eventText.setStyle("-fx-font-size: 10px;"); // Taille de police ajustable
 
-            // Ajouter le bloc à la boîte des événements du calendrier
+            eventBlock.setOnMouseClicked(event2 -> {
+                if (event2.getClickCount() == 1) {
+                    if (eventBlock.getStyle().contains("GRAY")) {
+                        showEmailDialog();
+                    }
+                }
+            });
+
             calendarEventsBox.getChildren().add(eventBlock);
         }
 
-        // Espacement entre les blocs
         calendarEventsBox.setSpacing(spacing);
         if (calendarEvents.size() > 0)
             calendarEventsBox.setTranslateY((calendarEvents.get(0).getDateStart().
@@ -187,4 +180,38 @@ public class EdtController {
         stackPane.getChildren().add(calendarEventsBox);
     }
 
+    private void showEmailDialog() {
+        Stage dialogStage = new Stage();
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setTitle("Envoyer un e-mail");
+
+        VBox vbox = new VBox();
+        vbox.setSpacing(10);
+        vbox.setAlignment(Pos.CENTER);
+
+        TextField recipientEmailField = new TextField();
+        recipientEmailField.setPromptText("Adresse e-mail");
+
+        TextField subjectField = new TextField();
+        subjectField.setPromptText("Sujet");
+
+        TextArea messageArea = new TextArea();
+        messageArea.setPromptText("Corps du message");
+
+        Button sendButton = new Button("Envoyer");
+        sendButton.setOnAction(event -> {
+            try {
+                mailService.sendEmail(recipientEmailField.getText(), subjectField.getText(), messageArea.getText());
+                dialogStage.close();
+            } catch (MessagingException e) {
+                e.printStackTrace(); // Vous pouvez gérer l'erreur ici en affichant un message d'erreur à l'utilisateur
+            }
+        });
+
+        vbox.getChildren().addAll(recipientEmailField, subjectField, messageArea, sendButton);
+
+        Scene scene = new Scene(vbox, 300, 200);
+        dialogStage.setScene(scene);
+        dialogStage.show();
+    }
 }
