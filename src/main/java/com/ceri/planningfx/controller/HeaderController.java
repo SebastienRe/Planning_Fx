@@ -1,6 +1,7 @@
 package com.ceri.planningfx.controller;
 
 import com.ceri.planningfx.PlanningApplication;
+import com.ceri.planningfx.metier.ParserIcs;
 import com.ceri.planningfx.utilities.AccountService;
 import com.ceri.planningfx.utilities.HeaderManager;
 import javafx.fxml.FXML;
@@ -118,7 +119,9 @@ public class HeaderController {
                         //enlever l'extension du fichier
                         MenuItem menuItem = new MenuItem(file.getName().substring(0, file.getName().lastIndexOf('.')));
                         menuItem.setOnAction(event -> {
-                            // Ajouter le code pour gérer le clic sur un fichier de formation
+                            ParserIcs.foleder = "formations";
+                            ParserIcs.file = file.getName();
+                            HeaderManager.getEdtController().refresh();
                         });
                         menuButtonFormation.getItems().add(menuItem);
                     }
@@ -133,7 +136,9 @@ public class HeaderController {
                         //enlever l'extension du fichier
                         MenuItem menuItem = new MenuItem(file.getName().substring(0, file.getName().lastIndexOf('.')));
                         menuItem.setOnAction(event -> {
-                            // Ajouter le code pour gérer le clic sur un fichier de salle
+                            ParserIcs.foleder = "salle";
+                            ParserIcs.file = file.getName();
+                            HeaderManager.getEdtController().refresh();
                         });
                         menuButtonSalle.getItems().add(menuItem);
                     }
@@ -148,7 +153,9 @@ public class HeaderController {
                         //enlever l'extension du fichier
                         MenuItem menuItem = new MenuItem(file.getName().substring(0, file.getName().lastIndexOf('.')));
                         menuItem.setOnAction(event -> {
-                            // Ajouter le code pour gérer le clic sur un fichier d'utilisateur
+                            ParserIcs.foleder = "users";
+                            ParserIcs.file = file.getName();
+                            HeaderManager.getEdtController().refresh();
                         });
                         menuButtonUtilisateur.getItems().add(menuItem);
                     }

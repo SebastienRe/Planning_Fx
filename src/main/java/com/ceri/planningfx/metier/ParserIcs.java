@@ -22,10 +22,13 @@ import net.fortuna.ical4j.model.component.VEvent;
 public class ParserIcs implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final String PATH =  System.getProperty("user.dir") + "\\src\\main\\resources\\com\\ceri\\planningfx\\data\\";
+    private static final String PATH =  System.getProperty("user.dir") +
+            "\\src\\main\\resources\\com\\ceri\\planningfx\\data\\planning\\";
     private  Calendar calendar;
     private  List<VEvent> events;
 
+    public static String foleder = "";
+    public static String file = "";
     private int min = 24;
     public ParserIcs() {
         System.out.println("dir : " + System.getProperty("user.dir"));
@@ -36,7 +39,7 @@ public class ParserIcs implements Serializable {
     public  Map<LocalDate, List<EvenementEntity>> parse() {
         Map<LocalDate, List<EvenementEntity>> eventsMap = new HashMap<>();
         try {
-            FileInputStream fin = this.getIcsFile("planning\\users\\uapv2200555.ics");
+            FileInputStream fin = this.getIcsFile(foleder + "\\" + file);
             CalendarBuilder builder = new CalendarBuilder();
             Calendar calendar = builder.build(fin);
             List<VEvent> events = calendar.getComponents("VEVENT");

@@ -2,6 +2,7 @@ package com.ceri.planningfx.controller;
 
 import com.ceri.planningfx.metier.ParserIcs;
 import com.ceri.planningfx.models.EvenementEntity;
+import com.ceri.planningfx.utilities.HeaderManager;
 import com.ceri.planningfx.utilities.MailService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,6 +54,7 @@ public class EdtController {
     Map<LocalDate, List<EvenementEntity>> calendarEventMap;
 
     public void initialize() {
+        HeaderManager.setEdtController(this);
         mailService = new MailService();
         ParserIcs parserIcs = new ParserIcs();
         calendarEventMap = parserIcs.parse();
@@ -175,8 +177,13 @@ public class EdtController {
 
         calendarEventsBox.setSpacing(spacing);
         if (calendarEvents.size() > 0)
-            calendarEventsBox.setTranslateY((calendarEvents.get(0).getDateStart().
-                    getHours() - min - 5) * 15);
+            //chercher la position de l'heure de debut de la premiere seance
+            for (EvenementEntity event : calendarEvents) {
+                if (event.getDateStart().getHours() > this.min) {
+                    this.min = event.getDateStart().getHours();
+                }
+            }
+        calendarEventsBox.setTranslateY((min) * 3);
         stackPane.getChildren().add(calendarEventsBox);
     }
 
@@ -213,5 +220,12 @@ public class EdtController {
         Scene scene = new Scene(vbox, 300, 200);
         dialogStage.setScene(scene);
         dialogStage.show();
+    }
+
+    public void refresh() {
+        ParserIcs parserIcs = new ParserIcs();
+        calendarEventMap = parserIcs.parse();
+        this.min = parserIcs.getMin();
+        drawCalendar(calendar);
     }
 }

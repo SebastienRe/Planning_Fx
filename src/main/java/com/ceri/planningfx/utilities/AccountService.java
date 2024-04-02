@@ -1,6 +1,7 @@
 package com.ceri.planningfx.utilities;
 
 import com.ceri.planningfx.PlanningApplication;
+import com.ceri.planningfx.metier.ParserIcs;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -33,7 +34,8 @@ public class AccountService {
         for (Object account : getAccounts()) {
             JSONObject acc = (JSONObject) account;
             if (acc.get("username").equals(username) && acc.get("mdp").equals(password)) {
-                //Router.changeScene("main.fxml");
+                ParserIcs.foleder = "users";
+                ParserIcs.file = acc.get("username") + ".ics";
                 connectedAccount = acc;
                 return true;
             }
