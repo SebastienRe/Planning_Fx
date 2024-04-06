@@ -69,7 +69,7 @@ public class ConnexionController {
             this.clearLabel();
 
             if (AccountService.connexion(username.getText(), password.getText())) {
-                Router.changeScene("main.fxml", 930, 800);
+                Router.changeScene("main.fxml", 1000, 690);
             } else {
                 infoLabel.setText("Connexion échouée");
             }
