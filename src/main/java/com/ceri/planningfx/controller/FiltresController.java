@@ -85,8 +85,6 @@ public class FiltresController {
     }
     private void resetFilters() {
         resetFiltersButton.setOnAction(event -> {
-            ParserIcs.foleder = "users";
-            ParserIcs.file = AccountService.getConnectedAccount().get("username") + ".ics";
             HeaderManager.getEdtController().refresh();
         });
     }
