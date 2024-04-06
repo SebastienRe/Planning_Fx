@@ -13,6 +13,8 @@ module com.ceri.planningfx {
     requires org.mnode.ical4j.core;
     requires json.simple;
     requires java.mail;
+    requires com.fasterxml.jackson.databind;
+    requires com.google.gson;
 
     opens com.ceri.planningfx to javafx.fxml;
     exports com.ceri.planningfx;
