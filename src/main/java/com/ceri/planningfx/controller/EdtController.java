@@ -44,11 +44,6 @@ public class EdtController {
     @FXML
     private FlowPane calendar;
 
-    @FXML
-    private Button nextWeekButton;
-    @FXML
-    private Button previousWeekButton;
-
     private MailService mailService;
     private String[] monthNames;
 
@@ -64,20 +59,20 @@ public class EdtController {
         this.min = parserIcs.getMin();
         DateFormatSymbols dfs = new DateFormatSymbols(Locale.FRENCH);
         monthNames = dfs.getMonths();
+        today = ZonedDateTime.now();
 
         dateFocus = ZonedDateTime.now();
-        today = ZonedDateTime.now();
-        nextWeekButton.setOnAction(this::moveToNextWeek);
-        previousWeekButton.setOnAction(this::moveToPreviousWeek);
         drawCalendar(calendar);
         this.filtresCollections = parserIcs.filtresCollections;
     }
 
+    @FXML
     private void moveToNextWeek(ActionEvent event) {
         dateFocus = dateFocus.plusWeeks(1); // Avance d'une semaine
         drawCalendar(calendar);
     }
 
+    @FXML
     private void moveToPreviousWeek(ActionEvent event) {
         dateFocus = dateFocus.minusWeeks(1); // Recule d'une semaine
         drawCalendar(calendar);

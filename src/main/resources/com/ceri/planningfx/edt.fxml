@@ -8,13 +8,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceri.planningfx.controller.EdtController">
    <children>
    
           <HBox alignment="CENTER" prefHeight="44.0" prefWidth="419.0" spacing="5.0">
            <children>
-               <Button fx:id="previousWeekButton" mnemonicParsing="false" text="&lt;" />
+               <Button mnemonicParsing="false" onAction="#moveToPreviousWeek" text="&lt;" />
                <Text fx:id="month" strokeType="OUTSIDE" strokeWidth="0.0" text="####">
                    <font>
                        <Font size="22.0" />
@@ -25,7 +24,7 @@
                        <Font size="22.0" />
                    </font>
                </Text>
-               <Button fx:id="nextWeekButton" mnemonicParsing="false" text="&gt;" />
+               <Button mnemonicParsing="false" onAction="#moveToNextWeek" text="&gt;" />
            </children>
        </HBox>
        <HBox alignment="CENTER" prefHeight="44.0" prefWidth="716.0" spacing="88.75">
