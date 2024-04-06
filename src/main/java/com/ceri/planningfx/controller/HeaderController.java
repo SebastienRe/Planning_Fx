@@ -111,9 +111,8 @@ public class HeaderController {
 
     private void setDarkMode() {
         System.out.println("dark mode");
-
-        if (HeaderManager.getMainBorderPane().getStylesheets().contains(PlanningApplication.class.getResource("stylesheets/themeLight.css")))
-            HeaderManager.getMainBorderPane().getStylesheets().remove(Objects.requireNonNull(PlanningApplication.class.getResource("stylesheets/themeLight.css")).toExternalForm());
+        this.setLightMode();
+        HeaderManager.getMainBorderPane().getStylesheets().remove(Objects.requireNonNull(PlanningApplication.class.getResource("stylesheets/themeLight.css")).toExternalForm());
         HeaderManager.getMainBorderPane().getStylesheets().add(Objects.requireNonNull(PlanningApplication.class.getResource("stylesheets/themeDark.css")).toExternalForm());
 
         ImageTheme.setImage(new Image(Objects.requireNonNull(PlanningApplication.class.getResource("images/mode-nuit.png")).toExternalForm()));
