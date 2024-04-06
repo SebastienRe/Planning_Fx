@@ -13,10 +13,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import org.json.simple.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
 public class HeaderController {
     @FXML
@@ -60,7 +62,8 @@ public class HeaderController {
                 e.printStackTrace();
             }
         }
-        this.setLightMode();
+
+        setActiveTheme();
         populateFormationMenu();
     }
 
@@ -86,30 +89,51 @@ public class HeaderController {
     public void changeTheme() {
         this.darkMode = !this.darkMode;
         if (this.darkMode)
-            this.setDarkMode();
+            AccountService.setAttributeToAccount("theme", "dark");
         else
+            AccountService.setAttributeToAccount("theme", "light");
+        this.setActiveTheme();
+    }
+
+    public void setActiveTheme() {
+        if (AccountService.getConnectedAccount().get("theme").equals("dark")){
+            this.darkMode = true;
+            this.setDarkMode();
+        }
+        else if (AccountService.getConnectedAccount().get("theme").equals("light")){
+            this.darkMode = false;
             this.setLightMode();
+        }
+        else {
+            throw new IllegalArgumentException("Theme not found");
+        }
     }
 
     private void setDarkMode() {
-        HeaderManager.getMainBorderPane().getStylesheets().remove(PlanningApplication.class.getResource("stylesheets/themeLight.css").toExternalForm());
-        HeaderManager.getMainBorderPane().getStylesheets().add(PlanningApplication.class.getResource("stylesheets/themeDark.css").toExternalForm());
+        System.out.println("dark mode");
 
-        ImageTheme.setImage(new Image(PlanningApplication.class.getResource("images/mode-nuit.png").toExternalForm()));
-        ImageButton.setImage(new Image(PlanningApplication.class.getResource("images/se-deconnecter-light.png").toExternalForm()));
+        if (HeaderManager.getMainBorderPane().getStylesheets().contains(PlanningApplication.class.getResource("stylesheets/themeLight.css")))
+            HeaderManager.getMainBorderPane().getStylesheets().remove(Objects.requireNonNull(PlanningApplication.class.getResource("stylesheets/themeLight.css")).toExternalForm());
+        HeaderManager.getMainBorderPane().getStylesheets().add(Objects.requireNonNull(PlanningApplication.class.getResource("stylesheets/themeDark.css")).toExternalForm());
+
+        ImageTheme.setImage(new Image(Objects.requireNonNull(PlanningApplication.class.getResource("images/mode-nuit.png")).toExternalForm()));
+        ImageButton.setImage(new Image(Objects.requireNonNull(PlanningApplication.class.getResource("images/se-deconnecter-light.png")).toExternalForm()));
     }
 
     private void setLightMode() {
-        HeaderManager.getMainBorderPane().getStylesheets().remove(PlanningApplication.class.getResource("stylesheets/themeDark.css").toExternalForm());
-        HeaderManager.getMainBorderPane().getStylesheets().add(PlanningApplication.class.getResource("stylesheets/themeLight.css").toExternalForm());
+        System.out.println("light mode");
 
-        ImageTheme.setImage(new Image(PlanningApplication.class.getResource("images/mode-jour.png").toExternalForm()));
-        ImageButton.setImage(new Image(PlanningApplication.class.getResource("images/se-deconnecter-dark.png").toExternalForm()));
+        HeaderManager.getMainBorderPane().getStylesheets().remove(Objects.requireNonNull(PlanningApplication.class.getResource("stylesheets/themeDark.css")).toExternalForm());
+        HeaderManager.getMainBorderPane().getStylesheets().add(Objects.requireNonNull(PlanningApplication.class.getResource("stylesheets/themeLight.css")).toExternalForm());
+
+        ImageTheme.setImage(new Image(Objects.requireNonNull(PlanningApplication.class.getResource("images/mode-jour.png")).toExternalForm()));
+        ImageButton.setImage(new Image(Objects.requireNonNull(PlanningApplication.class.getResource("images/se-deconnecter-dark.png")).toExternalForm()));
     }
 
     private void populateFormationMenu() {
         // Obtenir le chemin absolu du dossier "resources"
         URL planningFolderURL = getClass().getResource("/com/ceri/planningfx/data/planning");
+        assert planningFolderURL != null; // Vérifier que le dossier "planning" existe
         File planning = new File(planningFolderURL.getPath());
 
         // Vérifier si le dossier "formations" existe et est un répertoire
