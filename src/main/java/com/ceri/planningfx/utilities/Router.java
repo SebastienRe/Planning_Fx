@@ -25,6 +25,8 @@ public class Router {
             FXMLLoader fxmlLoader = new FXMLLoader(PlanningApplication.class.getResource(sceneName));
             Scene scene = new Scene(fxmlLoader.load(), width, height);
             PlanningApplication.getMainStage().setScene(scene);
+            PlanningApplication.getMainStage().setMinWidth(width);
+            PlanningApplication.getMainStage().setMinHeight(height);
         }
         catch (IOException e) {
             e.printStackTrace();
