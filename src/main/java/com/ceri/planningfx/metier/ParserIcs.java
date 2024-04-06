@@ -57,12 +57,12 @@ public class ParserIcs implements Serializable {
                             evenementEntity.setMatiere(s);
                             filtresCollections.listDesMatieres.add(s);
                             summary = summary + s + "\n";
+                        } else if (s.contains("Enseignant")) {
+                            evenementEntity.setProfesseur(s);
+                            summary = summary + s + "\n";
                         } else if (s.contains("Salle")) {
                             evenementEntity.setSalle(s);
                             filtresCollections.listDesSalles.add(s);
-                            summary = summary + s + "\n";
-                        } else if (s.contains("Professeur")) {
-                            evenementEntity.setProfesseur(s);
                             summary = summary + s + "\n";
                         } else if (s.contains("Type")) {
                             filtresCollections.typesDeCours.add(s);
@@ -140,12 +140,12 @@ public class ParserIcs implements Serializable {
                                 evenementEntity.setMatiere(s);
                                 filtresCollections.listDesMatieres.add(s);
                                 summary = summary + s + "\n";
+                            } else if (s.contains("Enseignant")) {
+                                evenementEntity.setProfesseur(s);
+                                summary = summary + s + "\n";
                             } else if (s.contains("Salle")) {
                                 evenementEntity.setSalle(s);
                                 filtresCollections.listDesSalles.add(s);
-                                summary = summary + s + "\n";
-                            } else if (s.contains("Professeur")) {
-                                evenementEntity.setProfesseur(s);
                                 summary = summary + s + "\n";
                             } else if (s.contains("Type")) {
                                 filtresCollections.typesDeCours.add(s);
