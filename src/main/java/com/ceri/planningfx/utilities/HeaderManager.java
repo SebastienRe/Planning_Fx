@@ -7,6 +7,7 @@ import javafx.scene.layout.BorderPane;
 public class HeaderManager {
     private static BorderPane mainBorderPane;
     private static EdtController edtController;
+    private static FiltresController filtresController;
 
     public static EdtController getEdtController() {
         return edtController;
@@ -16,8 +17,6 @@ public class HeaderManager {
         edtController = controller;
     }
 
-    private static FiltresController filtresController;
-
     public static FiltresController getFiltresController() {
         return filtresController;
     }
@@ -25,6 +24,7 @@ public class HeaderManager {
     public static void setFiltresController(FiltresController controller) {
         filtresController = controller;
     }
+
     public static BorderPane getMainBorderPane() {
         return mainBorderPane;
     }

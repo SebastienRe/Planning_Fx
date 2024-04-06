@@ -45,6 +45,10 @@ public class HeaderController {
 
     @FXML
     public void deconnexionButtonPressed() {
+        HeaderManager.setEdtController(null);
+        HeaderManager.setFiltresController(null);
+        HeaderManager.setMainBorderPane(null);
+
         AccountService.deconnexion();
     }
 
