@@ -15,15 +15,15 @@ import java.io.IOException;
 
 public class Router {
 
-    private static int width = 950;
-    private static int height = 400;
     public static void changeScene(String sceneName) {
+        changeScene(sceneName, 600, 400);
+    }
 
-
+    public static void changeScene(String sceneName, int width, int height) {
         try {
-            PlanningApplication.getMainStage();
+            PlanningApplication.getMainStage().getIcons().add(new Image("file:./resources/images/logo.png"));
             FXMLLoader fxmlLoader = new FXMLLoader(PlanningApplication.class.getResource(sceneName));
-            Scene scene = new Scene(fxmlLoader.load(), width, Screen.getPrimary().getVisualBounds().getHeight());
+            Scene scene = new Scene(fxmlLoader.load(), width, height);
             PlanningApplication.getMainStage().setScene(scene);
         }
         catch (IOException e) {
