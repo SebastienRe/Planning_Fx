@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.FlowPane?>
@@ -11,23 +13,39 @@
 <VBox xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceri.planningfx.controller.EdtController">
    <children>
    
-          <HBox alignment="CENTER" prefHeight="44.0" prefWidth="419.0" spacing="5.0">
+          <HBox alignment="CENTER" prefHeight="44.0" prefWidth="419.0" spacing="5.0" styleClass="primary-color" stylesheets="@stylesheets/themeLight.css">
            <children>
-               <Button mnemonicParsing="false" onAction="#moveToPreviousWeek" text="&lt;" />
-               <Text fx:id="month" strokeType="OUTSIDE" strokeWidth="0.0" text="####">
+               <Button mnemonicParsing="false" onAction="#moveToPreviousWeek" text="&lt;">
+               <stylesheets>
+                  <URL value="@stylesheets/button.css" />
+                  <URL value="@stylesheets/themeLight.css" />
+               </stylesheets>
+               <styleClass>
+                  <String fx:value="primary-color" />
+                  <String fx:value="button" />
+               </styleClass></Button>
+               <Text fx:id="month" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="primary-color" text="####">
                    <font>
                        <Font size="22.0" />
                    </font>
                </Text>
-               <Text fx:id="year" strokeType="OUTSIDE" strokeWidth="0.0" text="####">
+               <Text fx:id="year" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="primary-color" text="####">
                    <font>
                        <Font size="22.0" />
                    </font>
                </Text>
-               <Button mnemonicParsing="false" onAction="#moveToNextWeek" text="&gt;" />
+               <Button mnemonicParsing="false" onAction="#moveToNextWeek" text="&gt;">
+               <stylesheets>
+                  <URL value="@stylesheets/button.css" />
+                  <URL value="@stylesheets/themeLight.css" />
+               </stylesheets>
+               <styleClass>
+                  <String fx:value="primary-color" />
+                  <String fx:value="button" />
+               </styleClass></Button>
            </children>
        </HBox>
-       <HBox alignment="CENTER" prefHeight="44.0" prefWidth="716.0" spacing="88.75">
+       <HBox alignment="CENTER" prefHeight="44.0" prefWidth="716.0" spacing="88.75" styleClass="primary-color" stylesheets="@stylesheets/themeLight.css">
            <children>
                <!-- Ajouter ces lignes pour afficher la date complète -->
                <Text fx:id="dateMonday" strokeType="OUTSIDE" strokeWidth="0.0" text="Lundi" textOrigin="CENTER" />
