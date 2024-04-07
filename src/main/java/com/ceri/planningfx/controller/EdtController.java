@@ -3,6 +3,7 @@ package com.ceri.planningfx.controller;
 import com.ceri.planningfx.metier.ParserIcs;
 import com.ceri.planningfx.models.EvenementEntity;
 import com.ceri.planningfx.models.FiltresCollections;
+import com.ceri.planningfx.utilities.AccountService;
 import com.ceri.planningfx.utilities.HeaderManager;
 import com.ceri.planningfx.utilities.MailService;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -28,6 +30,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class EdtController {
 
@@ -44,6 +47,14 @@ public class EdtController {
     @FXML
     private FlowPane calendar;
 
+    @FXML
+    private HBox optionButtons;
+
+    @FXML
+    private Button addEventButton;
+    @FXML
+    private Button reserveRoomButton;
+
     private MailService mailService;
     private String[] monthNames;
 
@@ -51,12 +62,18 @@ public class EdtController {
 
     Map<LocalDate, List<EvenementEntity>> calendarEventMap;
 
+    ParserIcs parserIcs;
+
+
     public void initialize() {
+
         HeaderManager.setEdtController(this);
         mailService = new MailService();
-        ParserIcs parserIcs = new ParserIcs();
+
+        parserIcs = new ParserIcs();
         calendarEventMap = parserIcs.parse();
         this.min = parserIcs.getMin();
+
         DateFormatSymbols dfs = new DateFormatSymbols(Locale.FRENCH);
         monthNames = dfs.getMonths();
         today = ZonedDateTime.now();
@@ -64,6 +81,14 @@ public class EdtController {
         dateFocus = ZonedDateTime.now();
         drawCalendar(calendar);
         this.filtresCollections = parserIcs.filtresCollections;
+    }
+
+    public void initOptionsButtons() {
+        boolean canReserveRoom = ParserIcs.foleder.equals("salle") && AccountService.getConnectedAccount().get("role").equals("professeur");
+        boolean canAddEvent = ParserIcs.foleder.equals("users") && AccountService.getConnectedAccount().get("username").equals(ParserIcs.file.split("\\.")[0]);
+        addEventButton.setVisible(canAddEvent);
+        reserveRoomButton.setVisible(canReserveRoom);
+        optionButtons.setManaged(canReserveRoom || canAddEvent);
     }
 
     @FXML
@@ -78,7 +103,98 @@ public class EdtController {
         drawCalendar(calendar);
     }
 
+    private void createDialogToCreateEvent(String title){
+        Stage dialogStage = new Stage();
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
+        dialogStage.setTitle(title);
+
+        VBox vbox = new VBox();
+        vbox.setSpacing(10);
+        vbox.setAlignment(Pos.CENTER);
+
+        // DatePicker pour la date de l'événement
+        DatePicker eventDateField = new DatePicker();
+        eventDateField.setPromptText("Date");
+        // controller de champ
+        Pattern datePattern = Pattern.compile("^\\d{2}/\\d{2}/\\d{4}$");
+        eventDateField.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!datePattern.matcher(newValue).matches()) {
+                eventDateField.setStyle("-fx-border-color: red;");
+            } else {
+                eventDateField.setStyle("");
+            }
+        });
+
+        // TextField pour l'heure de début et de fin
+        Label label = new Label("Heure de début et de fin (format HH:MM-HH:MM)");
+        TextField startEndTimeField = new TextField();
+        startEndTimeField.setPromptText("HH:MM-HH:MM");
+        //controller de champ
+        Pattern timePattern = Pattern.compile("^([01]?[0-9]|2[0-3]):[0-5][0-9]-([01]?[0-9]|2[0-3]):[0-5][0-9]$");
+        startEndTimeField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!timePattern.matcher(newValue).matches()) {
+                startEndTimeField.setStyle("-fx-border-color: red;");
+            } else {
+                startEndTimeField.setStyle("");
+            }
+        });
+
+        TextField DescriptionField = new TextField();
+        DescriptionField.setPromptText("Description");
+        // controller de champ
+        DescriptionField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                DescriptionField.setStyle("-fx-border-color: red;");
+            } else {
+                DescriptionField.setStyle("");
+            }
+        });
+
+        Label errorLabel = new Label();
+        errorLabel.setTextFill(Color.RED);
+        errorLabel.setVisible(false);
+
+        Button addButton = new Button("Ajouter");
+        addButton.setOnAction(e -> {
+            // Ajoutez ici le code pour ajouter l'événement
+            if (timePattern.matcher(startEndTimeField.getText()).matches() && !DescriptionField.getText().isEmpty() && datePattern.matcher(eventDateField.getEditor().getText()).matches()) {
+                // Ajoutez ici le code pour ajouter l'événement
+                String retour = parserIcs.addEvent(String.valueOf(eventDateField.getValue()), startEndTimeField.getText(), DescriptionField.getText());
+                if (retour.equals("ok")) {
+                    dialogStage.close();
+                    refresh();
+                } else {
+                    errorLabel.setText(retour);
+                    errorLabel.setVisible(true);
+                }
+            } else {
+                errorLabel.setText("Veuillez remplir tous les champs correctement");
+                errorLabel.setVisible(true);
+            }
+        });
+
+        vbox.getChildren().addAll(eventDateField, label, startEndTimeField, DescriptionField, addButton, errorLabel);
+
+        Scene scene = new Scene(vbox, 300, 200);
+        dialogStage.setScene(scene);
+        dialogStage.show();
+
+    }
+
+
+
+    @FXML
+    private void add_event(ActionEvent event) {
+        createDialogToCreateEvent("Ajouter un événement");
+    }
+
+    @FXML
+    private void reserve_room(ActionEvent event) {
+        createDialogToCreateEvent("Réserver une salle");
+    }
+
     private void drawCalendar(FlowPane calendar) {
+        this.initOptionsButtons();
         year.setText(String.valueOf(dateFocus.getYear()));
         month.setText(monthNames[dateFocus.getMonthValue() - 1]);
 
@@ -227,7 +343,7 @@ public class EdtController {
         this.min = parserIcs.getMin();
         drawCalendar(calendar);
         this.filtresCollections = parserIcs.filtresCollections;
-        HeaderManager.getFiltresController().refresh();
+        if (HeaderManager.getFiltresController() != null) HeaderManager.getFiltresController().refresh();
     }
     public void refreshWithFiltre(String filtre) {
         ParserIcs parserIcs = new ParserIcs();

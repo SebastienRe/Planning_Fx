@@ -43,6 +43,30 @@
                   <String fx:value="primary-color" />
                   <String fx:value="button" />
                </styleClass></Button>
+            <HBox fx:id="optionButtons" alignment="CENTER_RIGHT" prefHeight="44.0" prefWidth="402.0">
+               <children>
+                  <Button fx:id="reserveRoomButton" mnemonicParsing="false" onAction="#reserve_room" style="-fx-background-color: #B74;" text="Reserver la salle" textAlignment="CENTER">
+                     <stylesheets>
+                        <URL value="@stylesheets/button.css" />
+                        <URL value="@stylesheets/themeLight.css" />
+                     </stylesheets>
+                     <styleClass>
+                        <String fx:value="primary-color" />
+                        <String fx:value="button" />
+                     </styleClass>
+                  </Button>
+                  <Button fx:id="addEventButton" mnemonicParsing="false" onAction="#add_event" style="-fx-background-color: #B34;" text="Ajouter un évenement">
+                     <stylesheets>
+                        <URL value="@stylesheets/button.css" />
+                        <URL value="@stylesheets/themeLight.css" />
+                     </stylesheets>
+                     <styleClass>
+                        <String fx:value="primary-color" />
+                        <String fx:value="button" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </HBox>
            </children>
        </HBox>
        <HBox alignment="CENTER" prefHeight="44.0" prefWidth="716.0" spacing="88.75" styleClass="primary-color" stylesheets="@stylesheets/themeLight.css">
@@ -61,7 +85,7 @@
        </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-             <FlowPane fx:id="calendar" hgap="10.0" prefHeight="498.0" prefWidth="716.0" vgap="5.0">
+             <FlowPane fx:id="calendar" hgap="10.0" minHeight="500.0" minWidth="700.0" prefHeight="500.0" prefWidth="716.0" vgap="5.0">
     </FlowPane>
          </children>
       </HBox>
