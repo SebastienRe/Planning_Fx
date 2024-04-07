@@ -281,7 +281,7 @@ public class EdtController {
 
             eventBlock.setOnMouseClicked(event2 -> {
                 if (event2.getClickCount() == 1) {
-                    if (eventBlock.getStyle().contains("GRAY")) {
+                    if (eventBlock.getStyle().contains("GRAY") && ParserIcs.foleder.equals("formations")) {
                         showEmailDialog();
                     }
                 }
