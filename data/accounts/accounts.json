@@ -1,0 +1,28 @@
+{
+  "accounts": [
+    {
+      "role": "eleve",
+      "mdp": "chips",
+      "theme": "dark",
+      "nom": "Ré",
+      "prenom": "Sébastien",
+      "username": "uapv2201797"
+    },
+    {
+      "role": "eleve",
+      "mdp": "123",
+      "theme": "light",
+      "nom": "Douki",
+      "prenom": "Lyes",
+      "username": "lyesdki"
+    },
+    {
+      "role": "professeur",
+      "mdp": "oui",
+      "theme": "light",
+      "nom": "Cecillon",
+      "prenom": "Noé",
+      "username": "cecillon"
+    }
+  ]
+}

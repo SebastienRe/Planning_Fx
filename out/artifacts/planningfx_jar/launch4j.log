@@ -1,0 +1,73 @@
+
+
+Version:	3.50
+CmdLine:	C:\projets\S2\javafx\Planning_fx\out\artifacts\planningfx_jar\planning.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\projets\S2\javafx\Planning_fx\out\artifacts\planningfx_jar\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+Substitute:	JAVA_HOME = 
+Substitute:	PATH = C:\Program Files\Mozilla Firefox;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Users\etudiant\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\Docker\Docker\resources\bin;C:\projets\urbanisation\flutter\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\Java\jdk-17\bin;C:\projets\S2\serveur_application\glassfish5\glassfish\bin;C:\projets\S2\apache-maven-3.9.6\bin;C:\projets\S2\gradle-7.6.4\bin;C:\Program Files\ZeroC\Ice-3.7.10\bin;C:\projets\S2\serveur_application\glassfish5\glassfish\modules\*.jar;C:\Program Files\PuTTY\;C:\Users\etudiant\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\etudiant\AppData\Local\Programs\Python\Python312\;C:\Users\etudiant\AppData\Local\Programs\Python\Launcher\;C:\Users\etudiant\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Users\etudiant\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\bin;;C:\Users\etudiant\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\tools\dart-sdk\bin;C:\Users\etudiant\AppData\Local\Pub\Cache\bin;;C:\Program Files\JetBrains\JetBrains Rider 2023.3.3\bin;;C:\Users\etudiant\.dotnet\tools;C:\Program Files\Java\jdk-17\bin
+JRE paths:	;C:\Program Files\Mozilla Firefox;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Users\etudiant\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\Docker\Docker\resources\bin;C:\projets\urbanisation\flutter\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\Java\jdk-17\bin;C:\projets\S2\serveur_application\glassfish5\glassfish\bin;C:\projets\S2\apache-maven-3.9.6\bin;C:\projets\S2\gradle-7.6.4\bin;C:\Program Files\ZeroC\Ice-3.7.10\bin;C:\projets\S2\serveur_application\glassfish5\glassfish\modules\*.jar;C:\Program Files\PuTTY\;C:\Users\etudiant\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\etudiant\AppData\Local\Programs\Python\Python312\;C:\Users\etudiant\AppData\Local\Programs\Python\Launcher\;C:\Users\etudiant\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Users\etudiant\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\bin;;C:\Users\etudiant\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\tools\dart-sdk\bin;C:\Users\etudiant\AppData\Local\Pub\Cache\bin;;C:\Program Files\JetBrains\JetBrains Rider 2023.3.3\bin;;C:\Users\etudiant\.dotnet\tools;C:\Program Files\Java\jdk-17\bin
+Check launcher:	C:\Program Files\Mozilla Firefox\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\bin\javaw.exe (not found)
+Check launcher:	C:\WINDOWS\system32\bin\javaw.exe (not found)
+Check launcher:	C:\WINDOWS\bin\javaw.exe (not found)
+Check launcher:	C:\WINDOWS\System32\Wbem\bin\javaw.exe (not found)
+Check launcher:	C:\WINDOWS\System32\WindowsPowerShell\v1.0\bin\javaw.exe (not found)
+Check launcher:	C:\WINDOWS\System32\OpenSSH\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Intel\WiFi\bin\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Common Files\Intel\WirelessCommon\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\dotnet\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Git\cmd\bin\javaw.exe (not found)
+Check launcher:	C:\Users\etudiant\AppData\Roaming\nvm\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\nodejs\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Docker\Docker\resources\bin\javaw.exe (not found)
+Check launcher:	C:\projets\urbanisation\flutter\bin\javaw.exe (not found)
+Check launcher:	C:\ProgramData\chocolatey\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Java\jdk-17\bin\javaw.exe (OK)
+Version string: 1.017.000_010 / 64-Bit (OK)
+Launcher:	C:\Program Files\Java\jdk-17\bin\javaw.exe
+Launcher args:	-jar "C:\projets\S2\javafx\Planning_fx\out\artifacts\planningfx_jar\planning.exe"
+Args length:	81/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\projets\S2\javafx\Planning_fx\out\artifacts\planningfx_jar\planning.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\projets\S2\javafx\Planning_fx\out\artifacts\planningfx_jar\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+Substitute:	JAVA_HOME = 
+Substitute:	PATH = C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Users\etudiant\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\Docker\Docker\resources\bin;C:\projets\urbanisation\flutter\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\Java\jdk-17\bin;C:\projets\S2\serveur_application\glassfish5\glassfish\bin;C:\projets\S2\apache-maven-3.9.6\bin;C:\projets\S2\gradle-7.6.4\bin;C:\Program Files\ZeroC\Ice-3.7.10\bin;C:\projets\S2\serveur_application\glassfish5\glassfish\modules\*.jar;C:\Program Files\PuTTY\;C:\Users\etudiant\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\etudiant\AppData\Local\Programs\Python\Python312\;C:\Users\etudiant\AppData\Local\Programs\Python\Launcher\;C:\Users\etudiant\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Users\etudiant\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\bin;;C:\Users\etudiant\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\tools\dart-sdk\bin;C:\Users\etudiant\AppData\Local\Pub\Cache\bin;;C:\Program Files\JetBrains\JetBrains Rider 2023.3.3\bin;;C:\Users\etudiant\.dotnet\tools;C:\Program Files\Java\jdk-17\bin
+JRE paths:	;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Users\etudiant\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\Docker\Docker\resources\bin;C:\projets\urbanisation\flutter\bin;C:\ProgramData\chocolatey\bin;C:\Program Files\Java\jdk-17\bin;C:\projets\S2\serveur_application\glassfish5\glassfish\bin;C:\projets\S2\apache-maven-3.9.6\bin;C:\projets\S2\gradle-7.6.4\bin;C:\Program Files\ZeroC\Ice-3.7.10\bin;C:\projets\S2\serveur_application\glassfish5\glassfish\modules\*.jar;C:\Program Files\PuTTY\;C:\Users\etudiant\AppData\Local\Programs\Python\Python312\Scripts\;C:\Users\etudiant\AppData\Local\Programs\Python\Python312\;C:\Users\etudiant\AppData\Local\Programs\Python\Launcher\;C:\Users\etudiant\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Users\etudiant\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\IntelliJ IDEA 2023.2.3\bin;;C:\Users\etudiant\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\tools\dart-sdk\bin;C:\Users\etudiant\AppData\Local\Pub\Cache\bin;;C:\Program Files\JetBrains\JetBrains Rider 2023.3.3\bin;;C:\Users\etudiant\.dotnet\tools;C:\Program Files\Java\jdk-17\bin
+Check launcher:	C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\bin\javaw.exe (not found)
+Check launcher:	C:\WINDOWS\system32\bin\javaw.exe (not found)
+Check launcher:	C:\WINDOWS\bin\javaw.exe (not found)
+Check launcher:	C:\WINDOWS\System32\Wbem\bin\javaw.exe (not found)
+Check launcher:	C:\WINDOWS\System32\WindowsPowerShell\v1.0\bin\javaw.exe (not found)
+Check launcher:	C:\WINDOWS\System32\OpenSSH\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Intel\WiFi\bin\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Common Files\Intel\WirelessCommon\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\dotnet\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Git\cmd\bin\javaw.exe (not found)
+Check launcher:	C:\Users\etudiant\AppData\Roaming\nvm\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\nodejs\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Docker\Docker\resources\bin\javaw.exe (not found)
+Check launcher:	C:\projets\urbanisation\flutter\bin\javaw.exe (not found)
+Check launcher:	C:\ProgramData\chocolatey\bin\javaw.exe (not found)
+Check launcher:	C:\Program Files\Java\jdk-17\bin\javaw.exe (OK)
+Version string: 1.017.000_010 / 64-Bit (OK)
+Launcher:	C:\Program Files\Java\jdk-17\bin\javaw.exe
+Launcher args:	-jar "C:\projets\S2\javafx\Planning_fx\out\artifacts\planningfx_jar\planning.exe"
+Args length:	81/32768 chars
+Exit code:	0

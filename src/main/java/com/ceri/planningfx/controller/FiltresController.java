@@ -5,9 +5,14 @@ import com.ceri.planningfx.models.FiltresCollections;
 import com.ceri.planningfx.utilities.AccountService;
 import com.ceri.planningfx.utilities.HeaderManager;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.VBox;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,6 +34,8 @@ public class FiltresController {
     private Button resetFiltersButton;
     private FiltresCollections filtresCollections;
 
+    KeyCodeCombination ctrlZ = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
+
     public void initialize() {
         HeaderManager.setFiltresController(this);
         // Initialiser les ensembles de filtres
@@ -40,6 +47,7 @@ public class FiltresController {
         afficherFiltresDansMenuButton(typesCoursMenuButton, filtresCollections.typesDeCours);
         afficherFiltresDansMenuButton(sallesMenuButton, filtresCollections.listDesSalles);
         resetFilters();
+        this.setActionsWithKeyboard();
     }
 
     private void afficherFiltresDansMenuButton(MenuButton menuButton, Set<String> filtres) {
@@ -73,6 +81,7 @@ public class FiltresController {
 
     //refresh les filtres
     public void refresh() {
+        System.out.println("refresh filtre");
         filtresCollections = HeaderManager.getEdtController().filtresCollections;
         matieresMenuButton.getItems().clear();
         groupesMenuButton.getItems().clear();
@@ -87,5 +96,34 @@ public class FiltresController {
         resetFiltersButton.setOnAction(event -> {
             HeaderManager.getEdtController().refresh();
         });
+    }
+
+    @FXML
+    private VBox vbox;
+    private void setActionsWithKeyboard()
+    {
+
+            // Récupérez la scène à partir de l'un des éléments graphiques
+            Scene scene = vbox.getScene();
+            if (scene != null) {
+                System.out.println("scene non null dans filtre");
+                // Ajoutez vos raccourcis clavier à la scène
+                scene.getAccelerators().put(ctrlZ, this::refreshRacourci);
+
+            }else {
+                vbox.sceneProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        System.out.println("scene non null dans filtre");
+                        // Ajoutez vos raccourcis clavier à la scène
+                        newValue.getAccelerators().put(ctrlZ, this::refreshRacourci);
+                    }
+                });
+            }
+
+    }
+
+    private void refreshRacourci()
+    {
+        HeaderManager.getEdtController().refresh();
     }
 }

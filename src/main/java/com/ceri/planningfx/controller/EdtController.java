@@ -11,6 +11,9 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -64,6 +67,17 @@ public class EdtController {
 
     ParserIcs parserIcs;
 
+    KeyCodeCombination ctrlQ = new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN);
+    KeyCodeCombination ctrlD = new KeyCodeCombination(KeyCode.D, KeyCombination.CONTROL_DOWN);
+    KeyCodeCombination ctrlA = new KeyCodeCombination(KeyCode.A, KeyCombination.CONTROL_DOWN);
+    KeyCodeCombination ctrlE = new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN);
+    KeyCodeCombination ctrlM = new KeyCodeCombination(KeyCode.M, KeyCombination.CONTROL_DOWN);
+
+    @FXML
+    private Button bouttonNextWeek;
+
+    @FXML
+    private Button bouttonPreviousWeek;
 
     public void initialize() {
 
@@ -81,6 +95,7 @@ public class EdtController {
         dateFocus = ZonedDateTime.now();
         drawCalendar(calendar);
         this.filtresCollections = parserIcs.filtresCollections;
+        this.setActionsWithKeyboard();
     }
 
     public void initOptionsButtons() {
@@ -350,5 +365,41 @@ public class EdtController {
         calendarEventMap = parserIcs.parseWithFiltre(filtre);
         this.min = parserIcs.getMin();
         drawCalendar(calendar);
+    }
+
+    @FXML
+    private VBox vbox;
+    private void setActionsWithKeyboard()
+    {
+        if (bouttonNextWeek != null && bouttonPreviousWeek != null) {
+            // Récupérez la scène à partir de l'un des éléments graphiques
+            Scene scene = vbox.getScene();
+            if (scene != null) {
+                System.out.println("scene non null");
+                // Ajoutez vos raccourcis clavier à la scène
+                scene.getAccelerators().put(ctrlD, () -> moveToNextWeek(null));
+                scene.getAccelerators().put(ctrlQ, () -> moveToPreviousWeek(null));
+                scene.getAccelerators().put(ctrlA, () ->
+                        createDialogToCreateEvent("Ajouter un événement"));
+                scene.getAccelerators().put(ctrlE, () ->
+                        createDialogToCreateEvent("Réserver une salle"));
+                scene.getAccelerators().put(ctrlM, () -> showEmailDialog());
+            }else {
+                vbox.sceneProperty().addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        System.out.println("scene non null");
+                        // Ajoutez vos raccourcis clavier à la scène
+                        newValue.getAccelerators().put(ctrlD, () -> moveToNextWeek(null));
+                        newValue.getAccelerators().put(ctrlQ, () -> moveToPreviousWeek(null));
+                        newValue.getAccelerators().put(ctrlA, () ->
+                                createDialogToCreateEvent("Ajouter un événement"));
+                        newValue.getAccelerators().put(ctrlE, () ->
+                                createDialogToCreateEvent("Réserver une salle"));
+                        newValue.getAccelerators().put(ctrlM, () -> showEmailDialog());
+                    }
+                });
+            }
+        }
+
     }
 }

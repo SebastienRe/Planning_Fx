@@ -10,12 +10,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceri.planningfx.controller.EdtController">
+<VBox fx:id="vbox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ceri.planningfx.controller.EdtController">
    <children>
    
           <HBox alignment="CENTER" prefHeight="44.0" prefWidth="419.0" spacing="5.0" styleClass="primary-color" stylesheets="@stylesheets/themeLight.css">
            <children>
-               <Button mnemonicParsing="false" onAction="#moveToPreviousWeek" text="&lt;">
+               <Button fx:id="bouttonPreviousWeek" mnemonicParsing="false" onAction="#moveToPreviousWeek" text="&lt;">
                <stylesheets>
                   <URL value="@stylesheets/button.css" />
                   <URL value="@stylesheets/themeLight.css" />
@@ -34,7 +34,7 @@
                        <Font size="22.0" />
                    </font>
                </Text>
-               <Button mnemonicParsing="false" onAction="#moveToNextWeek" text="&gt;">
+               <Button fx:id="bouttonNextWeek" mnemonicParsing="false" onAction="#moveToNextWeek" text="&gt;">
                <stylesheets>
                   <URL value="@stylesheets/button.css" />
                   <URL value="@stylesheets/themeLight.css" />
