@@ -21,6 +21,9 @@ import java.net.URL;
 import java.util.Objects;
 
 public class HeaderController {
+    private static final String PATH = System.getProperty("user.dir") +
+            File.separator + "data" +
+            File.separator + "planning";
     @FXML
     ToggleButton HambugerButton;
 
@@ -130,14 +133,11 @@ public class HeaderController {
     }
 
     private void populateFormationMenu() {
-        // Obtenir le chemin absolu du dossier "resources"
-        URL planningFolderURL = getClass().getResource("/com/ceri/planningfx/data/planning");
-        assert planningFolderURL != null; // Vérifier que le dossier "planning" existe
-        File planning = new File(planningFolderURL.getPath());
+        File planning = new File(PATH);
 
         // Vérifier si le dossier "formations" existe et est un répertoire
         if (planning.exists() && planning.isDirectory()) {
-            File formation = new File(planning.getPath() + "/formations");
+            File formation = new File(planning.getPath() + File.separator + "formations");
             File[] filesFormation = formation.listFiles();
             // Parcourir les fichiers dans le dossier "formations"
             if (filesFormation != null) {
@@ -154,7 +154,7 @@ public class HeaderController {
                     }
                 }
             }
-            File salle = new File(planning.getPath() + "/salle");
+            File salle = new File(planning.getPath() + File.separator + "salle");
             File[] filesSalle = salle.listFiles();
             // Parcourir les fichiers dans le dossier "salles"
             if (filesSalle != null) {
@@ -171,7 +171,7 @@ public class HeaderController {
                     }
                 }
             }
-            File utilisateur = new File(planning.getPath() + "/users");
+            File utilisateur = new File(planning.getPath() + File.separator + "users");
             File[] filesUtilisateur = utilisateur.listFiles();
             // Parcourir les fichiers dans le dossier "users"
             if (filesUtilisateur != null) {
@@ -190,5 +190,5 @@ public class HeaderController {
             }
         }
     }
-
+    
 }

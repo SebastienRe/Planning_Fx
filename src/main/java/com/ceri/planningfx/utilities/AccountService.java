@@ -53,14 +53,18 @@ public class AccountService {
         jsonFile.put("accounts", allAccounts);
 
         try {
-            URL resource = PlanningApplication.class.getResource("data/accounts/accounts.json");
-            String filePath = Paths.get(resource.toURI()).toString();
-            System.out.println("Writing to file: " + filePath);
+            String currentDir = System.getProperty("user.dir");
+
+            // Chemin complet du fichier accounts.json
+            String filePath = currentDir + File.separator + "data" + File.separator + "accounts"
+                    + File.separator + "accounts.json";
+
+
             try (FileWriter writer = new FileWriter(filePath)) {
                 gson.toJson(jsonFile, writer);
             }
             System.out.println("Successfully wrote to file");
-        } catch (IOException | java.net.URISyntaxException e) {
+        } catch (IOException e) {
             System.out.println("Failed to write to file");
             e.printStackTrace();
         }
@@ -70,11 +74,16 @@ public class AccountService {
 
     private static JSONArray getAccounts() {
         try {
-            URL resource = PlanningApplication.class.getResource("data/accounts/accounts.json");
-            String filePath = Paths.get(resource.toURI()).toString();
+            String currentDir = System.getProperty("user.dir");
+            System.out.println("Current dir: " + currentDir);
+            // Chemin complet du fichier accounts.json
+            String filePath = currentDir + File.separator + "data" + File.separator + "accounts"
+                    + File.separator + "accounts.json";
+
+
             JSONObject json = (JSONObject) new JSONParser().parse(new FileReader(filePath));
             return (JSONArray) json.get("accounts");
-        } catch (IOException | ParseException | java.net.URISyntaxException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
         return null;

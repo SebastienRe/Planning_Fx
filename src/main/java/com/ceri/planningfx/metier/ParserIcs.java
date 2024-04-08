@@ -25,7 +25,8 @@ public class ParserIcs implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private static final String PATH = System.getProperty("user.dir") +
-            "\\src\\main\\resources\\com\\ceri\\planningfx\\data\\planning\\";
+            File.separator + "data" +
+            File.separator + "planning";
 
     public static String foleder = "";
     public static String file = "";
@@ -39,7 +40,7 @@ public class ParserIcs implements Serializable {
     public Map<LocalDate, List<EvenementEntity>> parse() {
         Map<LocalDate, List<EvenementEntity>> eventsMap = new HashMap<>();
         try {
-            FileInputStream fin = this.getIcsFile(foleder + "\\" + file);
+            FileInputStream fin = this.getIcsFile(foleder, file);
             CalendarBuilder builder = new CalendarBuilder();
             Calendar calendar = builder.build(fin);
             List<VEvent> events = calendar.getComponents("VEVENT");
@@ -100,10 +101,12 @@ public class ParserIcs implements Serializable {
         return eventsMap;
     }
 
-    public FileInputStream getIcsFile(String path) {
+    public FileInputStream getIcsFile(String folder, String file) {
         try {
+
+            String filePath = PATH + File.separator + folder + File.separator + file;
             // path to resource
-            return new FileInputStream(PATH + path);
+            return new FileInputStream(filePath);
         } catch (FileNotFoundException ex) {
             throw new RuntimeException(ex);
         }
@@ -116,7 +119,7 @@ public class ParserIcs implements Serializable {
     public Map<LocalDate, List<EvenementEntity>> parseWithFiltre(String filtre) {
         Map<LocalDate, List<EvenementEntity>> eventsMap = new HashMap<>();
         try {
-            FileInputStream fin = this.getIcsFile(foleder + "\\" + file);
+            FileInputStream fin = this.getIcsFile(foleder, file);
             CalendarBuilder builder = new CalendarBuilder();
             Calendar calendar = builder.build(fin);
             List<VEvent> events = calendar.getComponents("VEVENT");
@@ -217,7 +220,7 @@ public class ParserIcs implements Serializable {
                     description);
 
             // Ajout de l'événement au fichier ICS
-            FileInputStream fin = this.getIcsFile(foleder + "\\" + file);
+            FileInputStream fin = this.getIcsFile(foleder ,file);
             CalendarBuilder builder = new CalendarBuilder();
             Calendar calendar = builder.build(fin);
 
@@ -255,8 +258,12 @@ public class ParserIcs implements Serializable {
     }
 
     public void serializeCalendar(Calendar calendar) throws IOException {
+
+        // Création du chemin complet du fichier
+        String filePath = PATH + File.separator + foleder + File.separator + file;
+
         // Créer un objet FileOutputStream pour écrire dans un fichier
-        FileOutputStream fout = new FileOutputStream(PATH + foleder + "\\" + file);
+        FileOutputStream fout = new FileOutputStream(filePath);
 
         // Utiliser un objet CalendarOutputter pour sérialiser le calendrier
         CalendarOutputter outputter = new CalendarOutputter();
@@ -265,6 +272,6 @@ public class ParserIcs implements Serializable {
         // Fermer le flux de sortie
         fout.close();
 
-        System.out.println("Calendrier sérialisé avec succès dans " + PATH + foleder + "\\" + file);
+        System.out.println("Calendrier sérialisé avec succès dans " + filePath);
     }
 }
