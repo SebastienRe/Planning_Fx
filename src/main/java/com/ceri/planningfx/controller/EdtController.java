@@ -88,7 +88,7 @@ public class EdtController {
         boolean canAddEvent = ParserIcs.foleder.equals("users") && AccountService.getConnectedAccount().get("username").equals(ParserIcs.file.split("\\.")[0]);
         addEventButton.setVisible(canAddEvent);
         reserveRoomButton.setVisible(canReserveRoom);
-        optionButtons.setManaged(canReserveRoom || canAddEvent);
+        optionButtons.setVisible(canReserveRoom || canAddEvent);
     }
 
     @FXML
